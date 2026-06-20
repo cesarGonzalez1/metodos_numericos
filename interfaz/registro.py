@@ -16,6 +16,7 @@ del formulario en un valor de Python:
 * ``lista_funciones_xy``   -> list[Callable]       (Taylor superior)
 * ``float`` / ``int``      -> número
 * ``complejo``             -> complex
+* ``texto``                -> str (Entry, sin conversión)
 * ``opcion``               -> str (Combobox con ``opciones``)
 """
 
@@ -25,6 +26,7 @@ from metodos.edo.euler import euler
 from metodos.edo.runge_kutta import runge_kutta
 from metodos.edo.runge_kutta_fehlberg import runge_kutta_fehlberg
 from metodos.edo.taylor_superior import taylor_superior
+from metodos.conversion.binario_a_decimal import binario_a_decimal
 from metodos.conversion.decimal_a_binario import decimal_a_binario
 from metodos.derivacion.cinco_puntos import cinco_puntos
 from metodos.derivacion.cuatro_puntos import cuatro_puntos
@@ -123,7 +125,35 @@ CATEGORIAS: list[tuple[str, list[dict]]] = [
             {
                 "nombre": "Decimal a binario",
                 "funcion": decimal_a_binario,
-                "campos": [_campo("numero", "Número decimal", "int", "10")],
+                "campos": [
+                    _campo("numero", "Número decimal", "float", "12.625"),
+                    _campo(
+                        "precision",
+                        "Precisión IEEE 754",
+                        "opcion",
+                        "doble",
+                        ["doble", "simple"],
+                    ),
+                ],
+            },
+            {
+                "nombre": "Binario a decimal",
+                "funcion": binario_a_decimal,
+                "campos": [
+                    _campo(
+                        "bits",
+                        "Binario (bits o entera.fracc.)",
+                        "texto",
+                        "1010.101",
+                    ),
+                    _campo(
+                        "precision",
+                        "Precisión IEEE 754",
+                        "opcion",
+                        "doble",
+                        ["doble", "simple"],
+                    ),
+                ],
             },
         ],
     ),

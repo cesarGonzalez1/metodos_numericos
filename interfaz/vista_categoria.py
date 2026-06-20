@@ -96,7 +96,7 @@ class VistaCategoria(VistaBase):
             return int(texto)
         if tipo == "complejo":
             return complex(texto.replace(" ", ""))
-        if tipo == "opcion":
+        if tipo in ("opcion", "texto"):
             return texto
         raise ValueError(f"Tipo de campo no soportado: {tipo}")
 
