@@ -1,0 +1,13 @@
+[project]
+name = "metodos-numericos"
+version = "0.1.0"
+description = "Proyecto universitario de Métodos Numéricos con interfaz Tkinter."
+requires-python = ">=3.12"
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

@@ -1,0 +1,20 @@
+# Dependencias del proyecto — Métodos Numéricos
+# Python 3.12+
+# Tkinter NO se lista aquí: viene incluido con el intérprete estándar de
+# Python. En Linux, si falta, instalar con el gestor de paquetes del SO:
+#   Debian/Ubuntu: sudo apt install python3-tk
+#   Fedora:        sudo dnf install python3-tkinter
+#   Arch:          sudo pacman -S tk
+
+# --- Cálculo numérico ---
+numpy>=1.26,<2.0
+
+# --- Gráficas (curvas, convergencia, EDO, etc.) ---
+matplotlib>=3.8,<4.0
+
+# --- Calidad de código ---
+black>=24.0
+flake8>=7.0
+
+# --- Pruebas ---
+pytest>=8.0
