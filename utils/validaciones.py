@@ -12,6 +12,54 @@ from collections.abc import Callable
 from utils.errores import EntradaInvalidaError
 
 
+def validar_no_vacia(lista: object, nombre: str = "datos") -> None:
+    """Valida que `lista` sea una secuencia no vacía.
+
+    Args:
+        lista: Secuencia (list/tuple) a validar.
+        nombre: Nombre del parámetro, usado en el mensaje de error.
+
+    Raises:
+        EntradaInvalidaError: Si no es lista/tupla o está vacía.
+    """
+    if not isinstance(lista, (list, tuple)):
+        raise EntradaInvalidaError(f"'{nombre}' debe ser una lista o tupla.")
+    if len(lista) == 0:
+        raise EntradaInvalidaError(f"'{nombre}' no puede estar vacía.")
+
+
+def validar_sin_duplicados(valores: list, nombre: str = "x_datos") -> None:
+    """Valida que `valores` no contenga elementos repetidos.
+
+    Args:
+        valores: Secuencia de valores (típicamente nodos x).
+        nombre: Nombre del parámetro, usado en el mensaje de error.
+
+    Raises:
+        EntradaInvalidaError: Si hay valores repetidos.
+    """
+    if len(set(valores)) != len(valores):
+        raise EntradaInvalidaError(f"'{nombre}' no debe contener valores repetidos.")
+
+
+def validar_entero_positivo(valor: int, nombre: str) -> None:
+    """Valida que `valor` sea un entero estrictamente positivo.
+
+    Args:
+        valor: Valor a validar.
+        nombre: Nombre del parámetro, usado en el mensaje de error.
+
+    Raises:
+        EntradaInvalidaError: Si no es entero o es <= 0.
+    """
+    if not isinstance(valor, int) or isinstance(valor, bool):
+        raise EntradaInvalidaError(f"'{nombre}' debe ser un entero.")
+    if valor <= 0:
+        raise EntradaInvalidaError(
+            f"'{nombre}' debe ser mayor a 0, se recibió: {valor}."
+        )
+
+
 def validar_funcion(f: object, nombre: str = "f") -> None:
     """Valida que `f` sea invocable (una función o callable).
 
