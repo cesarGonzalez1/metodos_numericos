@@ -60,6 +60,20 @@ def validar_entero_positivo(valor: int, nombre: str) -> None:
         )
 
 
+def validar_paso(h: float, nombre: str = "h") -> None:
+    """Valida que el tamaño de paso sea estrictamente positivo.
+
+    Args:
+        h: Tamaño de paso (derivación/integración).
+        nombre: Nombre del parámetro, usado en el mensaje de error.
+
+    Raises:
+        EntradaInvalidaError: Si h <= 0.
+    """
+    if h <= 0:
+        raise EntradaInvalidaError(f"'{nombre}' debe ser mayor a 0, se recibió: {h}.")
+
+
 def validar_funcion(f: object, nombre: str = "f") -> None:
     """Valida que `f` sea invocable (una función o callable).
 
