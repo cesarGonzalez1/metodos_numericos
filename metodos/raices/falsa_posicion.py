@@ -1,8 +1,8 @@
-"""Método de bisección para búsqueda de raíces.
+"""Método de falsa posición (regula falsi) para búsqueda de raíces.
 
-Método cerrado: parte de un intervalo [a, b] donde la función cambia de
-signo y lo divide a la mitad en cada paso, conservando el subintervalo que
-sigue conteniendo la raíz.
+Método cerrado similar a bisección, pero en lugar de tomar el punto medio
+toma la intersección con el eje X de la recta que une (a, f(a)) y
+(b, f(b)). Suele converger más rápido que bisección.
 """
 
 from __future__ import annotations
@@ -18,40 +18,35 @@ from utils.validaciones import (
 )
 
 
-def biseccion(
+def falsa_posicion(
     f: Callable[[float], float],
     a: float,
     b: float,
     tolerancia: float = 1e-6,
     max_iteraciones: int = 100,
 ) -> dict:
-    """Encuentra una raíz de `f` en el intervalo [a, b] por bisección.
+    """Encuentra una raíz de `f` en [a, b] por falsa posición.
 
     Args:
         f: Función continua de la cual se busca la raíz.
         a: Extremo izquierdo del intervalo.
         b: Extremo derecho del intervalo.
-        tolerancia: Error absoluto máximo aceptado.
+        tolerancia: Error absoluto máximo aceptado entre aproximaciones.
         max_iteraciones: Número máximo de iteraciones permitidas.
 
     Returns:
-        Diccionario con las claves:
-            - ``raiz`` (float): Mejor aproximación de la raíz.
-            - ``iteraciones`` (int): Número de iteraciones realizadas.
-            - ``convergio`` (bool): True si se alcanzó la tolerancia.
-            - ``error`` (float): Error absoluto de la última iteración.
-            - ``historial`` (list[dict]): Detalle por iteración con las
-              claves ``i``, ``a``, ``b``, ``c``, ``fc`` y ``error``,
-              pensado para mostrarse en una tabla de Tkinter.
+        Diccionario con las claves ``raiz``, ``iteraciones``, ``convergio``,
+        ``error`` e ``historial`` (lista de dicts con ``i``, ``a``, ``b``,
+        ``c``, ``fc`` y ``error``).
 
     Raises:
-        EntradaInvalidaError: Si los parámetros de entrada no son válidos
-            o si f(a) y f(b) no tienen signos opuestos.
+        EntradaInvalidaError: Si los parámetros no son válidos o si f(a) y
+            f(b) no tienen signos opuestos.
 
     Example:
-        >>> resultado = biseccion(lambda x: x**2 - 4, a=0, b=5)
+        >>> resultado = falsa_posicion(lambda x: x**3 - x - 2, a=1, b=2)
         >>> round(resultado["raiz"], 4)
-        2.0
+        1.5214
     """
     validar_funcion(f)
     validar_intervalo(a, b)
@@ -61,23 +56,27 @@ def biseccion(
 
     historial: list[dict] = []
     c = a
+    c_anterior = a
     error = abs(b - a)
     convergio = False
 
     for i in range(1, max_iteraciones + 1):
-        c = (a + b) / 2.0
+        fa = f(a)
+        fb = f(b)
+        c = b - fb * (a - b) / (fa - fb)
         fc = f(c)
-        error = (b - a) / 2.0
+        error = abs(c - c_anterior) if i > 1 else abs(b - a)
         historial.append({"i": i, "a": a, "b": b, "c": c, "fc": fc, "error": error})
 
         if fc == 0 or error < tolerancia:
             convergio = True
             break
 
-        if f(a) * fc < 0:
+        if fa * fc < 0:
             b = c
         else:
             a = c
+        c_anterior = c
 
     return {
         "raiz": c,
@@ -89,10 +88,8 @@ def biseccion(
 
 
 # --- Ejemplos de uso (comentados) ---------------------------------------
-# from metodos.raices.biseccion import biseccion
+# from metodos.raices.falsa_posicion import falsa_posicion
 #
-# # Raíz de x^2 - 4 en [0, 5]  ->  2.0
-# resultado = biseccion(lambda x: x**2 - 4, a=0, b=5, tolerancia=1e-8)
-# resultado["raiz"]        # ~2.0
-# resultado["convergio"]   # True
-# resultado["iteraciones"] # número de pasos realizados
+# # Raíz de x^3 - x - 2 en [1, 2]  ->  ~1.5214
+# resultado = falsa_posicion(lambda x: x**3 - x - 2, a=1, b=2)
+# resultado["raiz"]

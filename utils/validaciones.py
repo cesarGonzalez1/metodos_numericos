@@ -7,7 +7,62 @@ evitar duplicación (DRY). Cada función debe lanzar
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 from utils.errores import EntradaInvalidaError
+
+
+def validar_funcion(f: object, nombre: str = "f") -> None:
+    """Valida que `f` sea invocable (una función o callable).
+
+    Args:
+        f: Objeto que debería ser una función de una variable.
+        nombre: Nombre del parámetro, usado en el mensaje de error.
+
+    Raises:
+        EntradaInvalidaError: Si `f` no es invocable.
+    """
+    if not callable(f):
+        raise EntradaInvalidaError(
+            f"El parámetro '{nombre}' debe ser una función invocable."
+        )
+
+
+def validar_tolerancia(tolerancia: float) -> None:
+    """Valida que la tolerancia sea un número estrictamente positivo.
+
+    Args:
+        tolerancia: Error absoluto máximo aceptado por un método iterativo.
+
+    Raises:
+        EntradaInvalidaError: Si tolerancia <= 0.
+    """
+    if tolerancia <= 0:
+        raise EntradaInvalidaError(
+            f"La tolerancia debe ser mayor a 0, se recibió: {tolerancia}."
+        )
+
+
+def validar_cambio_signo(f: Callable[[float], float], a: float, b: float) -> None:
+    """Valida que `f(a)` y `f(b)` tengan signos opuestos.
+
+    Es la condición necesaria para los métodos cerrados (bisección y regla
+    falsa): garantiza —por el teorema de Bolzano— que existe al menos una
+    raíz en el intervalo [a, b].
+
+    Args:
+        f: Función continua evaluada en los extremos.
+        a: Extremo izquierdo del intervalo.
+        b: Extremo derecho del intervalo.
+
+    Raises:
+        EntradaInvalidaError: Si f(a) y f(b) no tienen signos opuestos.
+    """
+    if f(a) * f(b) > 0:
+        raise EntradaInvalidaError(
+            "No se garantiza una raíz en el intervalo: f(a) y f(b) deben "
+            f"tener signos opuestos (f({a})={f(a)}, f({b})={f(b)})."
+        )
 
 
 def validar_intervalo(a: float, b: float) -> None:

@@ -25,9 +25,16 @@ metodos-numericos/
 │   ├── conversion/
 │   │   ├── __init__.py
 │   │   └── decimal_a_binario.py  # Ejemplo / plantilla
-│   ├── raices/
-│   │   ├── __init__.py
-│   │   └── biseccion.py          # Ejemplo / plantilla
+│   ├── raices/                  # Búsqueda de raíces (1 método por archivo)
+│   │   ├── __init__.py           # Reexporta todas las funciones públicas
+│   │   ├── biseccion.py
+│   │   ├── falsa_posicion.py
+│   │   ├── punto_fijo.py
+│   │   ├── newton_raphson.py
+│   │   ├── secante.py
+│   │   ├── muller.py             # Soporta raíces complejas (cmath)
+│   │   ├── bairstow.py           # Todas las raíces de un polinomio
+│   │   └── deflacion.py          # División sintética por (x - raiz)
 │   ├── interpolacion/
 │   │   ├── __init__.py
 │   │   └── lagrange.py           # Ejemplo / plantilla
@@ -50,9 +57,16 @@ metodos-numericos/
 │   ├── validaciones.py           # Validaciones reutilizables
 │   └── formato.py                # Formateo de resultados
 │
-├── tests/
+├── tests/                       # Una suite por método (pytest)
 │   ├── __init__.py
-│   └── test_biseccion.py         # Ejemplo / plantilla de prueba
+│   ├── test_biseccion.py
+│   ├── test_falsa_posicion.py
+│   ├── test_punto_fijo.py
+│   ├── test_newton_raphson.py
+│   ├── test_secante.py
+│   ├── test_muller.py
+│   ├── test_bairstow.py
+│   └── test_deflacion.py
 │
 ├── docs/
 │   └── ESTRUCTURA.md             # Este archivo
