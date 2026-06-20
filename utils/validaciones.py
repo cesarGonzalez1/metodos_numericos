@@ -160,6 +160,47 @@ def validar_misma_longitud(*listas: list) -> None:
         )
 
 
+def validar_matriz_cuadrada(matriz: list, nombre: str = "matriz_a") -> None:
+    """Valida que `matriz` sea una matriz cuadrada no vacía.
+
+    Args:
+        matriz: Lista de listas (filas) a validar.
+        nombre: Nombre del parámetro, usado en el mensaje de error.
+
+    Raises:
+        EntradaInvalidaError: Si está vacía, las filas no son listas del
+            mismo largo o no es cuadrada (n×n).
+    """
+    if not isinstance(matriz, (list, tuple)) or len(matriz) == 0:
+        raise EntradaInvalidaError(f"'{nombre}' debe ser una matriz no vacía.")
+    n = len(matriz)
+    for fila in matriz:
+        if not isinstance(fila, (list, tuple)) or len(fila) != n:
+            raise EntradaInvalidaError(
+                f"'{nombre}' debe ser cuadrada (n×n); se esperaban {n} "
+                "columnas en cada fila."
+            )
+
+
+def validar_sistema_lineal(matriz_a: list, vector_b: list) -> None:
+    """Valida la compatibilidad dimensional de un sistema A·x = b.
+
+    Args:
+        matriz_a: Matriz de coeficientes (n×n).
+        vector_b: Vector de términos independientes (largo n).
+
+    Raises:
+        EntradaInvalidaError: Si `matriz_a` no es cuadrada o `vector_b` no
+            tiene longitud n.
+    """
+    validar_matriz_cuadrada(matriz_a, "matriz_a")
+    if not isinstance(vector_b, (list, tuple)) or len(vector_b) != len(matriz_a):
+        raise EntradaInvalidaError(
+            "El vector de términos independientes debe tener longitud "
+            f"{len(matriz_a)} (igual al número de ecuaciones)."
+        )
+
+
 def validar_max_iteraciones(max_iteraciones: int) -> None:
     """Valida que el número máximo de iteraciones sea positivo.
 
