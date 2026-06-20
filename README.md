@@ -50,6 +50,10 @@ pip install -r requirements.txt
 python main.py
 ```
 
+Esto abre la interfaz gráfica (Tkinter) con navegación por categorías. Ver
+la guía de uso y el flujo visual en [`docs/GUI.md`](docs/GUI.md). En Linux,
+si falta Tk, instalar `python3-tk`.
+
 ## Estructura del proyecto
 
 ```

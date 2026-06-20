@@ -17,8 +17,12 @@ metodos-numericos/
 │
 ├── interfaz/
 │   ├── __init__.py
-│   ├── ventana_principal.py      # Ventana raíz / navegación
-│   └── vista_base.py             # Clase base para sub-ventanas (Toplevel)
+│   ├── ventana_principal.py      # Ventana raíz / navegación por categorías
+│   ├── vista_base.py             # Clase base para sub-ventanas (Toplevel)
+│   ├── vista_categoria.py        # Vista genérica (formulario + resultado)
+│   ├── registro.py               # Conexión declarativa GUI <-> metodos/
+│   ├── evaluador.py              # Texto -> función / lista / matriz (seguro)
+│   └── formato_resultado.py      # Resultado -> texto para mostrar
 │
 ├── metodos/
 │   ├── __init__.py
