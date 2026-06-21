@@ -13,11 +13,12 @@ import tkinter as tk
 from tkinter import ttk
 
 from interfaz.registro import CATEGORIAS
+from interfaz.tema import AZUL, AZUL_NOCHE, BLANCO, FONDO, centrar, configurar_tema
 from interfaz.vista_categoria import VistaCategoria
 
 APP_TITLE = "Métodos Numéricos"
-APP_MIN_WIDTH = 720
-APP_MIN_HEIGHT = 480
+APP_MIN_WIDTH = 760
+APP_MIN_HEIGHT = 560
 
 
 class VentanaPrincipal(tk.Tk):
@@ -30,21 +31,45 @@ class VentanaPrincipal(tk.Tk):
         super().__init__()
         self.title(APP_TITLE)
         self.minsize(APP_MIN_WIDTH, APP_MIN_HEIGHT)
+        configurar_tema(self)
+        centrar(self, 920, 650)
         self._construir_layout()
 
     def _construir_layout(self) -> None:
         """Construye el encabezado y los botones de navegación."""
-        contenedor = ttk.Frame(self, padding=20)
+        encabezado = tk.Frame(self, background=AZUL_NOCHE, padx=34, pady=24)
+        encabezado.pack(fill="x")
+        tk.Label(
+            encabezado,
+            text=APP_TITLE,
+            background=AZUL_NOCHE,
+            foreground=BLANCO,
+            font=("Segoe UI Semibold", 24),
+        ).pack(anchor="w")
+        tk.Label(
+            encabezado,
+            text="Laboratorio interactivo · Plan de estudios LCD 2020",
+            background=AZUL_NOCHE,
+            foreground="#D9EAF2",
+            font=("Segoe UI", 10),
+        ).pack(anchor="w", pady=(4, 0))
+
+        contenedor = ttk.Frame(self, padding=(34, 24, 34, 18))
         contenedor.pack(fill="both", expand=True)
-
-        titulo = ttk.Label(contenedor, text=APP_TITLE, font=("Segoe UI", 18, "bold"))
-        titulo.pack(pady=(0, 4))
-
-        subtitulo = ttk.Label(
+        ttk.Label(
             contenedor,
-            text="Selecciona una categoría de método",
-        )
-        subtitulo.pack(pady=(0, 16))
+            text="Elige una unidad para comenzar",
+            font=("Segoe UI Semibold", 14),
+            foreground=AZUL_NOCHE,
+        ).pack(anchor="w", pady=(0, 4))
+        ttk.Label(
+            contenedor,
+            text=(
+                "Cada método incluye fórmula, condiciones, entradas validadas "
+                "y resultados auditables."
+            ),
+            style="Muted.TLabel",
+        ).pack(anchor="w", pady=(0, 18))
 
         # Rejilla de botones, uno por categoría del registro.
         rejilla = ttk.Frame(contenedor)
@@ -52,18 +77,22 @@ class VentanaPrincipal(tk.Tk):
         for indice, (categoria, metodos) in enumerate(CATEGORIAS):
             boton = ttk.Button(
                 rejilla,
-                text=f"{categoria}  ({len(metodos)})",
+                text=f"{categoria}\n{len(metodos)} métodos",
+                style="Category.TButton",
                 command=lambda c=categoria, m=metodos: self._abrir_categoria(c, m),
             )
             fila, columna = divmod(indice, 2)
-            boton.grid(row=fila, column=columna, sticky="ew", padx=6, pady=6, ipady=8)
+            boton.grid(row=fila, column=columna, sticky="nsew", padx=7, pady=7)
+            rejilla.rowconfigure(fila, weight=1)
         rejilla.columnconfigure(0, weight=1)
         rejilla.columnconfigure(1, weight=1)
 
         pie = ttk.Label(
             contenedor,
-            text="Proyecto académico — ESCOM, IPN",
-            font=("Segoe UI", 8),
+            text="Cobertura verificada: 5 unidades temáticas · ESCOM, IPN",
+            foreground=AZUL,
+            background=FONDO,
+            font=("Segoe UI", 9),
         )
         pie.pack(side="bottom", pady=(16, 0))
 

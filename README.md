@@ -5,11 +5,17 @@ Numéricos (conversión de bases, raíces de ecuaciones, interpolación,
 derivación, integración, ecuaciones diferenciales ordinarias y operaciones
 con matrices), con interfaz gráfica en Tkinter.
 
+La cobertura fue contrastada renglón por renglón con el programa sintético
+LCD 2020. Consulta la [matriz de cumplimiento](docs/CUMPLIMIENTO_TEMARIO.md).
+Cada pantalla incluye fundamento, fórmula, condiciones de aplicación,
+resultado, tabla de iteraciones cuando procede y gráfica opcional.
+
 ## Tabla de contenido
 
 - [Requisitos](#requisitos)
 - [Instalación](#instalación)
 - [Ejecución](#ejecución)
+- [Cobertura del temario](docs/CUMPLIMIENTO_TEMARIO.md)
 - [Estructura del proyecto](#estructura-del-proyecto)
 - [Convenciones de código](#convenciones-de-código)
 - [Flujo de trabajo en Git](#flujo-de-trabajo-en-git)

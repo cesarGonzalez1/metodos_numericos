@@ -86,7 +86,6 @@ def decimal_a_binario(numero: float, precision: str = "doble") -> dict:
 
     fmt = _FORMATOS[precision]
     bits_exp = int(fmt["exp"])
-    bits_mantisa = int(fmt["mantisa"])
     sesgo = int(fmt["sesgo"])
 
     # Patrón de bits exacto que el hardware almacena para este float.

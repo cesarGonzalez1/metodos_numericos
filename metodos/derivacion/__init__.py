@@ -17,6 +17,7 @@ from metodos.derivacion.diferencias_finitas import (
     diferencia_atras,
     diferencia_centrada,
 )
+from metodos.derivacion.n_mas_un_puntos import n_mas_un_puntos
 from metodos.derivacion.richardson import richardson
 from metodos.derivacion.tres_puntos import tres_puntos
 
@@ -27,6 +28,7 @@ __all__ = [
     "diferencia_adelante",
     "diferencia_atras",
     "diferencia_centrada",
+    "n_mas_un_puntos",
     "richardson",
     "tres_puntos",
 ]

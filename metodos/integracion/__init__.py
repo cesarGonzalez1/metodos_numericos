@@ -12,6 +12,7 @@ from __future__ import annotations
 from metodos.integracion.cuadratura_adaptativa import cuadratura_adaptativa
 from metodos.integracion.cuadratura_gaussiana import cuadratura_gaussiana
 from metodos.integracion.punto_medio import punto_medio
+from metodos.integracion.punto_medio_compuesto import punto_medio_compuesto
 from metodos.integracion.romberg import romberg
 from metodos.integracion.simpson_tres_octavos import simpson_tres_octavos
 from metodos.integracion.simpson_tres_octavos_compuesto import (
@@ -28,6 +29,7 @@ __all__ = [
     "cuadratura_adaptativa",
     "cuadratura_gaussiana",
     "punto_medio",
+    "punto_medio_compuesto",
     "romberg",
     "simpson_tres_octavos",
     "simpson_tres_octavos_compuesto",

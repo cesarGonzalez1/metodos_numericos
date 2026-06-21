@@ -37,6 +37,12 @@ def test_funcion_sin_builtins() -> None:
         f(0)
 
 
+def test_funcion_bloquea_acceso_a_atributos() -> None:
+    f = evaluador.crear_funcion_x("(1).__class__")
+    with pytest.raises(evaluador.ExpresionInvalidaError):
+        f(0)
+
+
 def test_expresion_invalida() -> None:
     with pytest.raises(evaluador.ExpresionInvalidaError):
         evaluador.crear_funcion_x("x +")
@@ -74,6 +80,7 @@ def test_categorias_esperadas() -> None:
         "Integración",
         "EDO",
         "Sistemas lineales",
+        "Factorización",
     ]
 
 
@@ -82,6 +89,15 @@ def test_cada_metodo_es_invocable() -> None:
         for metodo in metodos:
             assert callable(metodo["funcion"])
             assert isinstance(metodo["campos"], list) and metodo["campos"]
+
+
+def test_cada_metodo_tiene_formula() -> None:
+    from interfaz.teoria import FORMULAS
+
+    for _categoria, metodos in CATEGORIAS:
+        for metodo in metodos:
+            assert metodo["nombre"] in FORMULAS
+            assert len(FORMULAS[metodo["nombre"]]) >= 12
 
 
 def test_claves_de_campos_unicas_por_metodo() -> None:

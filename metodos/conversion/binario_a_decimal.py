@@ -105,13 +105,13 @@ def _ieee_a_decimal(cadena: str, precision: str) -> dict:
         # Subnormal (o cero): sin el 1 implícito, exponente 1 - sesgo.
         exponente_real = 1 - sesgo
         significando = mantisa_fraccion
-        valor = signo * significando * 2 ** exponente_real
+        valor = signo * significando * 2**exponente_real
         nota = "cero" if mantisa_entera == 0 else "subnormal (sin 1 implícito)"
     else:
         # Normalizado: con el 1 implícito.
         exponente_real = valor_caracteristica - sesgo
         significando = 1 + mantisa_fraccion
-        valor = signo * significando * 2 ** exponente_real
+        valor = signo * significando * 2**exponente_real
         nota = "normalizado (con 1 implícito)"
 
     return {
