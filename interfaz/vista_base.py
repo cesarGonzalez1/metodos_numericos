@@ -31,16 +31,33 @@ class VistaBase(tk.Toplevel):
         configurar_tema(self)
         self.minsize(820, 600)
         centrar(self, 1040, 760)
+        self.protocol("WM_DELETE_WINDOW", self._volver_al_inicio)
+        self.bind("<Escape>", lambda _evento: self._volver_al_inicio())
 
         cabecera = tk.Frame(self, background=AZUL_NOCHE, padx=22, pady=13)
         cabecera.pack(fill="x")
+        tk.Button(
+            cabecera,
+            text="←  Volver al inicio",
+            command=self._volver_al_inicio,
+            background="#173F5F",
+            foreground=BLANCO,
+            activebackground="#24577A",
+            activeforeground=BLANCO,
+            font=("Segoe UI Semibold", 10),
+            relief="flat",
+            borderwidth=0,
+            cursor="hand2",
+            padx=14,
+            pady=7,
+        ).pack(side="right")
         tk.Label(
             cabecera,
             text=titulo,
             background=AZUL_NOCHE,
             foreground=BLANCO,
             font=("Segoe UI Semibold", 16),
-        ).pack(anchor="w")
+        ).pack(side="left", anchor="w")
 
         cuerpo = ttk.Panedwindow(self, orient="horizontal")
         cuerpo.pack(fill="both", expand=True, padx=16, pady=16)
@@ -117,6 +134,15 @@ class VistaBase(tk.Toplevel):
         scroll_x.grid(row=1, column=0, sticky="ew")
         self.frame_resultado.rowconfigure(0, weight=1)
         self.frame_resultado.columnconfigure(0, weight=1)
+
+    def _volver_al_inicio(self) -> None:
+        """Cierra la categoría actual y devuelve el foco a la ventana principal."""
+        principal = self.master
+        self.destroy()
+        if principal is not None and principal.winfo_exists():
+            principal.deiconify()
+            principal.lift()
+            principal.focus_force()
 
     def mostrar_resultado(self, texto: str) -> None:
         """Escribe `texto` en el área de resultado, reemplazando lo previo."""
