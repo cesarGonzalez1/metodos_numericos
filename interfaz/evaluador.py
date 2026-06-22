@@ -199,6 +199,22 @@ def parsear_matriz(texto: str) -> list[list[float]]:
     return [parsear_lista(fila) for fila in filas_texto]
 
 
+def parsear_lista_funciones_x(texto: str) -> list[Callable[[float], float]]:
+    """Convierte expresiones separadas por ``;`` en funciones base f(x).
+
+    Útil para los mínimos cuadrados con funciones base arbitrarias, donde
+    cada expresión es un término del modelo (p. ej. ``"1; x; sin(x)"`` ajusta
+    y = c0 + c1·x + c2·sin(x)).
+
+    Raises:
+        ExpresionInvalidaError: Si no hay expresiones o alguna no compila.
+    """
+    partes = [parte for parte in texto.split(";") if parte.strip()]
+    if not partes:
+        raise ExpresionInvalidaError("Debe ingresar al menos una función base.")
+    return [crear_funcion_x(parte) for parte in partes]
+
+
 def parsear_lista_funciones_xy(texto: str) -> list[Callable[[float, float], float]]:
     """Convierte expresiones separadas por ``;`` en funciones f(x, y).
 

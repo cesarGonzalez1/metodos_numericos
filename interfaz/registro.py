@@ -16,6 +16,7 @@ del formulario en un valor de Python:
 * ``funcion_estado``       -> Callable g(x, *u)    (evaluador.crear_funcion_estado)
 * ``lista``                -> list[float]          (evaluador.parsear_lista)
 * ``matriz``               -> list[list[float]]    (evaluador.parsear_matriz)
+* ``lista_funciones_x``    -> list[Callable]       (mínimos cuad. general)
 * ``lista_funciones_xy``   -> list[Callable]       (Taylor superior)
 * ``float`` / ``int``      -> número
 * ``complejo``             -> complex
@@ -72,6 +73,9 @@ from metodos.interpolacion.hermite import hermite
 from metodos.interpolacion.interpolacion_basica import interpolacion_basica
 from metodos.interpolacion.lagrange import lagrange
 from metodos.interpolacion.minimos_cuadrados import minimos_cuadrados
+from metodos.interpolacion.minimos_cuadrados_general import (
+    minimos_cuadrados_general,
+)
 from metodos.interpolacion.neville import neville
 from metodos.interpolacion.regresion_multiple import regresion_multiple
 from metodos.interpolacion.regresion_no_lineal import regresion_no_lineal
@@ -345,6 +349,20 @@ CATEGORIAS: list[tuple[str, list[dict]]] = [
                 "campos": [
                     _campo("x_datos", "x", "lista", "0, 1, 2, 3"),
                     _campo("y_datos", "y", "lista", "1, 3, 5, 7"),
+                ],
+            },
+            {
+                "nombre": "Mínimos cuadrados (funciones base)",
+                "funcion": minimos_cuadrados_general,
+                "campos": [
+                    _campo(
+                        "funciones",
+                        "Funciones base g(x) (sep. ;)",
+                        "lista_funciones_x",
+                        "1; x; sin(x)",
+                    ),
+                    _campo("x_datos", "x", "lista", "0, 1, 2, 3, 4"),
+                    _campo("y_datos", "y", "lista", "2, 4.5, 4.7, 2.4, 0"),
                 ],
             },
             {

@@ -177,6 +177,8 @@ class VistaCategoria(VistaBase):
             return evaluador.parsear_lista(texto)
         if tipo == "matriz":
             return evaluador.parsear_matriz(texto)
+        if tipo == "lista_funciones_x":
+            return evaluador.parsear_lista_funciones_x(texto)
         if tipo == "lista_funciones_xy":
             return evaluador.parsear_lista_funciones_xy(texto)
         if tipo == "float":

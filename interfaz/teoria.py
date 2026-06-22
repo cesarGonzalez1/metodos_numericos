@@ -40,6 +40,7 @@ FORMULAS: dict[str, str] = {
     "Diferencias divididas": "Pₙ(x)=f[x₀]+Σₖ f[x₀,…,xₖ] Π_{j<k}(x-xⱼ)",
     "Polinomio de Taylor": "Tₙ(x)=Σ_{k=0}ⁿ f⁽ᵏ⁾(x₀)(x-x₀)ᵏ/k!",
     "Mínimos cuadrados (lineal)": "min Σᵢ(yᵢ-a-bxᵢ)²;  (XᵀX)β=Xᵀy",
+    "Mínimos cuadrados (funciones base)": "y=Σⱼcⱼgⱼ(x); Aᵢⱼ=gⱼ(xᵢ); (AᵀA)c=Aᵀy",
     "Aproximación polinómica": "min Σᵢ(yᵢ-Σ_{k=0}ᵐ aₖxᵢᵏ)²;  (VᵀV)a=Vᵀy",
     "Regresión lineal múltiple": "ŷ = β₀+Σⱼβⱼxⱼ;  β=(XᵀX)⁻¹Xᵀy",
     "Regresión no lineal": "a·e^(bx): ln y=ln a+bx;   a·xᵇ: ln y=ln a+b ln x",
